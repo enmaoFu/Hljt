@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar_size"
+        android:background="@color/app_main_bg"
+        android:paddingLeft="12dp"
+        android:paddingRight="7dp">
+
+        <ImageView
+            android:id="@+id/more"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/more"
+            android:layout_centerVertical="true"
+            android:padding="5dp"/>
+
+        <ImageView
+            android:id="@+id/message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/xiaoxi"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/more"
+            android:layout_marginRight="15dp"
+            android:padding="5dp"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_toLeftOf="@id/message"
+            android:layout_marginRight="20dp"
+            android:layout_centerVertical="true"
+            android:background="@drawable/water_relayout_round">
+
+            <ImageView
+                android:id="@+id/sousuo_img"
+                android:layout_width="19dp"
+                android:layout_height="19dp"
+                android:src="@drawable/sousuo"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="15dp"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_toRightOf="@+id/sousuo_img"
+                android:background="@null"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="10dp"
+                android:hint="搜索您想搜索的内容"
+                android:textSize="12sp"
+                android:textColorHint="@color/app_text_bh"
+                android:textColor="@color/app_text_bh"
+                android:textCursorDrawable="@null"/>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <com.baidu.mapapi.map.MapView
+        android:id="@+id/bmapView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        android:layout_below="@+id/bar"
+        android:layout_above="@+id/bottom_menu"/>
+
+    <RelativeLayout
+        android:id="@+id/bottom_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#80090b0e">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_centerVertical="true"
+            android:background="#00090b0e">
+
+            <RelativeLayout
+                android:id="@+id/water"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="5dp">
+
+                <ImageView
+                    android:id="@+id/water_img"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/water"/>
+
+                <TextView
+                    android:id="@+id/water_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/water_img"
+                    android:layout_centerHorizontal="true"
+                    android:text="水源"
+                    android:textColor="#eeeeee"
+                    android:textSize="13sp"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/vedio"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="5dp">
+
+                <ImageView
+                    android:id="@+id/vedio_img"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/video"/>
+
+                <TextView
+                    android:id="@+id/vedio_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/vedio_img"
+                    android:layout_centerHorizontal="true"
+                    android:text="视频"
+                    android:textColor="#eeeeee"
+                    android:textSize="13sp"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/route"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="5dp">
+
+                <ImageView
+                    android:id="@+id/route_img"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/route"/>
+
+                <TextView
+                    android:id="@+id/route_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/route_img"
+                    android:layout_centerHorizontal="true"
+                    android:text="路线"
+                    android:textColor="#eeeeee"
+                    android:textSize="13sp"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/linkage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="5dp">
+
+                <ImageView
+                    android:id="@+id/linkage_img"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/linkage"/>
+
+                <TextView
+                    android:id="@+id/linkage_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/linkage_img"
+                    android:layout_centerHorizontal="true"
+                    android:text="联动"
+                    android:textColor="#eeeeee"
+                    android:textSize="13sp"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/periphery"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="5dp">
+
+                <ImageView
+                    android:id="@+id/periphery_img"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/periphery"/>
+
+                <TextView
+                    android:id="@+id/periphery_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/periphery_img"
+                    android:layout_centerHorizontal="true"
+                    android:text="周边"
+                    android:textColor="#eeeeee"
+                    android:textSize="13sp"/>
+            </RelativeLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/float_but"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/float_but"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="12dp"
+        android:layout_marginTop="394dp"/>
+
+    <ImageView
+        android:id="@+id/location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/location"
+        android:layout_alignParentRight="true"
+        android:padding="4dp"
+        android:layout_above="@+id/bottom_menu"/>
+
+</RelativeLayout>

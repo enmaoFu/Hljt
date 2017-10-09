@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/is_msg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="暂时没有聊天记录"
+        android:gravity="center"
+        android:textColor="#ededed"
+        android:textSize="14sp"
+        android:visibility="gone"/>
+
+    <RelativeLayout
+        android:id="@+id/receive"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        android:paddingBottom="8dp"
+        android:visibility="gone">
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/receive_head"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:actualImageScaleType="centerCrop"
+            app:failureImage="@drawable/loding"
+            app:failureImageScaleType="centerCrop"
+            app:placeholderImage="@drawable/loding"
+            app:placeholderImageScaleType="centerCrop"
+            app:roundAsCircle="true"
+            app:roundedCornerRadius="25dp"
+            android:layout_marginTop="8dp">
+        </com.facebook.drawee.view.SimpleDraweeView>
+
+        <LinearLayout
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_toRightOf="@+id/receive_head"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="4dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="地址专家"
+                android:textColor="#ededed"/>
+
+            <TextView
+                android:id="@+id/receive_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="asdasdasdas"
+                android:background="@drawable/text_bg_round2"
+                android:padding="8dp"
+                android:textColor="#ededed"
+                android:textSize="14sp"
+                android:layout_marginTop="5dp"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/send"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        android:paddingBottom="8dp"
+        android:visibility="gone">
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/send_head"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:actualImageScaleType="centerCrop"
+            app:failureImage="@drawable/loding"
+            app:failureImageScaleType="centerCrop"
+            app:placeholderImage="@drawable/loding"
+            app:placeholderImageScaleType="centerCrop"
+            app:roundAsCircle="true"
+            app:roundedCornerRadius="25dp"
+            android:layout_marginTop="8dp"
+            android:layout_alignParentRight="true">
+        </com.facebook.drawee.view.SimpleDraweeView>
+
+        <TextView
+            android:id="@+id/send_content"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/send_head"
+            android:layout_marginRight="12dp"
+            android:text="asdasdasdas啊是的撒大叔大叔大叔大叔大叔大叔啊盛大盛大盛大速度啊盛大盛大盛大盛大速度撒大叔大叔打算撒"
+            android:background="@drawable/text_bg_round2"
+            android:padding="8dp"
+            android:layout_marginTop="8dp"
+            android:textColor="#ededed"
+            android:textSize="14sp"/>
+
+    </RelativeLayout>
+
+</LinearLayout>

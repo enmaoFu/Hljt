@@ -1,0 +1,376 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!--<include layout="@layout/toolbar_layout"></include>-->
+
+    <RelativeLayout
+        android:id="@+id/bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/toolbar_size"
+        android:background="@color/app_main_bg"
+        android:paddingLeft="12dp"
+        android:paddingRight="7dp">
+
+        <ImageView
+            android:id="@+id/bar_fanhui"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:paddingLeft="10dp"
+            android:paddingTop="10dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="10dp"
+            android:src="@drawable/fanghui"/>
+
+        <TextView
+            android:id="@+id/bar_text"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:padding="10dp"
+            android:textColor="@color/app_text_bh"
+            android:textSize="18sp"
+            android:text="应用计算"
+            android:drawableRight="@drawable/down"
+            android:drawablePadding="5dp"/>
+
+        <ImageView
+            android:id="@+id/bar_sousuo"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:paddingLeft="10dp"
+            android:paddingTop="10dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="10dp"
+            android:src="@drawable/sousuo"/>
+
+
+    </RelativeLayout>
+
+    <View
+        style="@style/divier_style1">
+    </View>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="20dp"
+        android:background="@drawable/application_calculation_borm_bg">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="供水强度0.24L/S•m2"
+            android:gravity="right"
+            android:paddingTop="10dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="24dp"
+            android:textSize="16sp"
+            android:textColor="@color/white"/>
+
+        <lecho.lib.hellocharts.view.LineChartView
+            android:id="@+id/line_chart"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="供水时间3小时"
+            android:gravity="right"
+            android:paddingLeft="20dp"
+            android:paddingRight="24dp"
+            android:textSize="16sp"
+            android:textColor="@color/white"/>
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="12dp">
+
+                <RelativeLayout
+                    android:id="@+id/car"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="14dp"
+                    android:layout_marginRight="14dp">
+
+                    <TextView
+                        android:id="@+id/car_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="现场车辆数量"
+                        android:textColor="@color/app_text"
+                        android:textSize="14sp"
+                        android:layout_centerVertical="true"/>
+
+                    <TextView
+                        android:id="@+id/car_number"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="辆"
+                        android:textColor="@color/text_color"
+                        android:textSize="14sp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:drawableRight="@drawable/down"
+                        android:drawablePadding="18dp"/>
+
+                    <EditText
+                        android:layout_width="70dp"
+                        android:layout_height="25dp"
+                        android:layout_toLeftOf="@+id/car_number"
+                        android:layout_marginRight="8dp"
+                        android:background="@drawable/edit_bg"
+                        android:layout_centerVertical="true"
+                        android:textCursorDrawable="@null"
+                        android:paddingLeft="5dp"
+                        android:paddingTop="2dp"
+                        android:paddingBottom="2dp"
+                        android:paddingRight="5dp"
+                        android:textSize="12sp"/>
+
+                </RelativeLayout>
+
+                <SeekBar
+                    android:layout_width="335dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:thumb="@drawable/seekbar_selector"
+                    android:progressDrawable="@drawable/seekbar_layer"
+                    android:layout_below="@id/car"
+                    android:thumbOffset="0dp"
+                    android:maxHeight="7dp"
+                    android:splitTrack="false"/>
+
+            </RelativeLayout>
+
+            <View
+                style="@style/divier_style2"
+                android:layout_marginTop="12dp">
+            </View>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="12dp">
+
+                <RelativeLayout
+                    android:id="@+id/pipe"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="14dp"
+                    android:layout_marginRight="14dp">
+
+                    <TextView
+                        android:id="@+id/pipe_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="供水管网直径"
+                        android:textColor="@color/app_text"
+                        android:textSize="14sp"
+                        android:layout_centerVertical="true"/>
+
+                    <TextView
+                        android:id="@+id/pipe_number"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="mm"
+                        android:textColor="@color/text_color"
+                        android:textSize="14sp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:drawableRight="@drawable/down"
+                        android:drawablePadding="18dp"/>
+
+                    <EditText
+                        android:layout_width="70dp"
+                        android:layout_height="25dp"
+                        android:layout_toLeftOf="@+id/pipe_number"
+                        android:layout_marginRight="8dp"
+                        android:background="@drawable/edit_bg"
+                        android:layout_centerVertical="true"
+                        android:textCursorDrawable="@null"
+                        android:paddingLeft="5dp"
+                        android:paddingTop="2dp"
+                        android:paddingBottom="2dp"
+                        android:paddingRight="5dp"
+                        android:textSize="12sp"/>
+
+                </RelativeLayout>
+
+                <SeekBar
+                    android:layout_width="335dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:thumb="@drawable/seekbar_selector"
+                    android:progressDrawable="@drawable/seekbar_layer"
+                    android:layout_below="@id/pipe"
+                    android:thumbOffset="0dp"
+                    android:maxHeight="7dp"
+                    android:splitTrack="false" />
+
+            </RelativeLayout>
+
+            <View
+                style="@style/divier_style2"
+                android:layout_marginTop="12dp">
+            </View>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginLeft="14dp"
+                android:layout_marginRight="14dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="管网流速"
+                    android:textColor="@color/app_text"
+                    android:textSize="14sp"
+                    android:layout_centerVertical="true"/>
+
+                <RadioGroup android:id="@+id/radioGroup"
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:orientation="horizontal"
+                    android:layout_alignParentRight="true">
+
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="支1m/s状管网"
+                        android:textColor="@color/app_text"
+                        android:textSize="12sp"
+                        android:layout_marginRight="8dp"
+                        android:button="@drawable/radio_button_style"
+                        style="@style/package_radio_style"
+                        android:padding="5dp"/>
+
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="环状管网1.5m/s"
+                        android:textColor="@color/app_text"
+                        android:textSize="12sp"
+                        android:button="@drawable/radio_button_style"
+                        style="@style/package_radio_style"
+                        android:padding="5dp"/>
+
+                </RadioGroup>
+
+            </RelativeLayout>
+
+            <View
+                style="@style/divier_style2">
+            </View>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="12dp">
+
+                <RelativeLayout
+                    android:id="@+id/fire"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="14dp"
+                    android:layout_marginRight="14dp">
+
+                    <TextView
+                        android:id="@+id/fire_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="消防车泵流量"
+                        android:textColor="@color/app_text"
+                        android:textSize="14sp"
+                        android:layout_centerVertical="true"/>
+
+                    <TextView
+                        android:id="@+id/fire_number"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="L/s"
+                        android:textColor="@color/text_color"
+                        android:textSize="14sp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:drawableRight="@drawable/down"
+                        android:drawablePadding="18dp"/>
+
+                    <EditText
+                        android:layout_width="70dp"
+                        android:layout_height="25dp"
+                        android:layout_toLeftOf="@+id/fire_number"
+                        android:layout_marginRight="8dp"
+                        android:background="@drawable/edit_bg"
+                        android:layout_centerVertical="true"
+                        android:textCursorDrawable="@null"
+                        android:paddingLeft="5dp"
+                        android:paddingTop="2dp"
+                        android:paddingBottom="2dp"
+                        android:paddingRight="5dp"
+                        android:textSize="12sp"/>
+
+                </RelativeLayout>
+
+                <SeekBar
+                    android:layout_width="335dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:thumb="@drawable/seekbar_selector"
+                    android:progressDrawable="@drawable/seekbar_layer"
+                    android:layout_below="@id/fire"
+                    android:thumbOffset="0dp"
+                    android:maxHeight="7dp"
+                    android:splitTrack="false" />
+
+            </RelativeLayout>
+
+            <View
+                style="@style/divier_style2">
+            </View>
+
+            <TextView
+                android:layout_width="120dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:text="计算"
+                android:textSize="16sp"
+                android:textColor="@color/white"
+                android:background="@drawable/text_bg_round1"
+                android:gravity="center"/>
+            
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

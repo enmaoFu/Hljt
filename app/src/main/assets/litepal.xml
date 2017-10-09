@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<litepal>
+    <dbname value="hljt" ></dbname>
+
+    <version value="1" ></version>
+
+    <list>
+        <!-- 映射数据库表（实体类） -->
+        <mapping class="com.hljt.app.sql.ConversationPojo"></mapping>
+    </list>
+    <storage value="external" />
+</litepal>

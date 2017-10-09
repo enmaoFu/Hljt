@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/sgdw"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:background="@drawable/normal_wa_pressed_an"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/show_dialog_1"
+            android:paddingRight="10dp"
+            android:layout_gravity="center"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="事故单位信息"
+            android:textSize="16sp"
+            android:textColor="#e6e8ee"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"/>
+
+    </LinearLayout>
+
+    <View
+        style="@style/divier_style1">
+    </View>
+
+    <LinearLayout
+        android:id="@+id/txcs"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:background="@drawable/normal_wa_pressed_an"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/show_dialog_2"
+            android:paddingRight="10dp"
+            android:layout_gravity="center"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="现场图像传输"
+            android:textSize="16sp"
+            android:textColor="#e6e8ee"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"/>
+
+    </LinearLayout>
+
+    <View
+        style="@style/divier_style1">
+    </View>
+
+    <LinearLayout
+        android:id="@+id/fzrj"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:background="@drawable/normal_wa_pressed_an"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/show_dialog_3"
+            android:paddingRight="10dp"
+            android:layout_gravity="center"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="应用辅助软件"
+            android:textSize="16sp"
+            android:textColor="#e6e8ee"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"/>
+
+    </LinearLayout>
+
+    <View
+        style="@style/divier_style1">
+    </View>
+
+    <LinearLayout
+        android:id="@+id/zjzx"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:background="@drawable/normal_wa_pressed_an"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/show_dialog_4"
+            android:paddingRight="10dp"
+            android:layout_gravity="center"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="专家在线    "
+            android:textSize="16sp"
+            android:textColor="#e6e8ee"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"/>
+
+    </LinearLayout>
+
+    <View
+        style="@style/divier_style1"
+        android:visibility="gone">
+    </View>
+
+    <LinearLayout
+        android:id="@+id/tsyc"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:background="@drawable/normal_wa_pressed_an"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingRight="10dp"
+            android:src="@drawable/show_dialog_5" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:text="灾情态势预测"
+            android:textColor="#e6e8ee"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+    <View
+        style="@style/divier_style1">
+    </View>
+
+    <LinearLayout
+        android:id="@+id/yyjs"
+        android:layout_width="match_parent"
+        android:layout_height="46dp"
+        android:background="@drawable/normal_wa_pressed_an"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/show_dialog_6"
+            android:paddingRight="10dp"
+            android:layout_gravity="center"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="应用计算    "
+            android:textSize="16sp"
+            android:textColor="#e6e8ee"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"/>
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/close_but"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"/>
+
+</LinearLayout>
