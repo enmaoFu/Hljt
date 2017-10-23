@@ -73,10 +73,10 @@
         <activity android:name=".ui.water.VideoActivity"
             android:screenOrientation="landscape"></activity>
 
-        <!-- 百度地图 -->
+        <!-- 百度地图 间隔定位必须配置此service否则功能无效-->
         <service android:name="com.baidu.location.f"
-                 android:enabled="true"
-                 android:process=":remote"/>
+            android:enabled="true"
+            android:process=":remote"/>
 
         <!-- 环信 -->
         <!-- 声明SDK所需的service SDK核心功能-->

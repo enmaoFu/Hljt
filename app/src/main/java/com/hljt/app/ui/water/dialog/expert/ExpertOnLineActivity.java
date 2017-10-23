@@ -28,7 +28,6 @@ import com.hljt.app.R;
 import com.hljt.app.base.BaseAty;
 import com.hljt.app.base.BaseFgt;
 import com.hljt.app.pojo.MessageEvent;
-import com.hljt.app.sql.ConversationPojo;
 import com.hljt.app.ui.water.dialog.expert.all.ChatAllFgt;
 import com.hljt.app.ui.water.dialog.expert.grouping.ChatGroupingFgt;
 import com.hljt.app.ui.water.dialog.expert.message.ChatMessageFgt;
@@ -36,19 +35,15 @@ import com.hljt.app.ui.water.dialog.expert.video.ChatVideoFgt;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.EMMessageListener;
 import com.hyphenate.chat.EMClient;
-import com.hyphenate.chat.EMConversation;
 import com.hyphenate.chat.EMGroup;
 import com.hyphenate.chat.EMMessage;
-import com.hyphenate.chat.adapter.EMAGroup;
 import com.orhanobut.logger.Logger;
 
 import org.greenrobot.eventbus.EventBus;
-import org.litepal.crud.DataSupport;
 import org.litepal.tablemanager.Connector;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import butterknife.Bind;
 import permissions.dispatcher.NeedsPermission;
@@ -75,6 +70,9 @@ public class ExpertOnLineActivity extends BaseAty implements EMCallBack {
 
     private List<BaseFgt> mFragments;
     private List<String> mTabsString;
+
+    //头像数据
+    private String head = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1507083360&di=681541dec85bd70ec122584074d6eb92&imgtype=jpg&er=1&src=http%3A%2F%2Fwww.dxs518.cn%2Fimagesfiles%2Farticle%2F615%2F201628%2F12_xfny0___jpg.gif";
 
     //数据库
     private SQLiteDatabase db;
@@ -198,8 +196,8 @@ public class ExpertOnLineActivity extends BaseAty implements EMCallBack {
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         //注册接收消息的监听
         EMClient.getInstance().chatManager().addMessageListener(emMessageListener);
     }
@@ -362,18 +360,18 @@ public class ExpertOnLineActivity extends BaseAty implements EMCallBack {
          */
         @Override
         public void onMessageReceived(List<EMMessage> messages) {
-            for(EMMessage msg:messages) {
-                /*if(msg.getChatType() == EMMessage.ChatType.Chat){
-                    EventBus.getDefault().post(new MessageEvent("0",msg.getUserName(),
-                            "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1507083360&di=681541dec85bd70ec122584074d6eb92&imgtype=jpg&er=1&src=http%3A%2F%2Fwww.dxs518.cn%2Fimagesfiles%2Farticle%2F615%2F201628%2F12_xfny0___jpg.gif",
+            /*for(EMMessage msg:messages) {
+                if(msg.getChatType() == EMMessage.ChatType.Chat){
+                    EventBus.getDefault().post(new MessageEvent("0",msg.getUserName(),head,
                             msg.getBody().toString().substring(5,msg.getBody().toString().length() - 1)));
                 }else if(msg.getChatType() == EMMessage.ChatType.GroupChat){
-                    EventBus.getDefault().post(new MessageEvent(msg.getUserName(),msg.getUserName(),
-                            "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1507083360&di=681541dec85bd70ec122584074d6eb92&imgtype=jpg&er=1&src=http%3A%2F%2Fwww.dxs518.cn%2Fimagesfiles%2Farticle%2F615%2F201628%2F12_xfny0___jpg.gif",
+                    EMGroup emGroup = EMClient.getInstance().groupManager().getGroup(msg.getTo());
+                    String grounpName = emGroup.getGroupName();
+                    EventBus.getDefault().post(new MessageEvent(msg.getUserName(),grounpName,head,
                             msg.getBody().toString().substring(5,msg.getBody().toString().length() - 1)));
-                }*/
-                Logger.e("聊天主Activity里接收消息成功：" + msg.getUserName() + "---" + msg.getFrom() + "---" + msg.getTo() + "---" + msg.getMsgId());
-            }
+                }
+                //Logger.e("聊天主Activity里接收消息成功：" + msg.getUserName() + "---" + msg.getBody().toString()+ "---" + msg.getTo() + "---" + msg.getMsgId());
+            }*/
         }
 
         /**

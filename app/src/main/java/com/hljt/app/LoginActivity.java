@@ -4,11 +4,16 @@ import android.os.Handler;
 import android.view.View;
 import android.widget.EditText;
 
+import com.em.baseframe.util.RetrofitUtils;
 import com.em.baseframe.view.statusbar.StatusBarUtil;
 import com.hljt.app.base.BaseAty;
+import com.hljt.app.http.HttpInterface;
 
 import butterknife.Bind;
 import butterknife.OnClick;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Response;
 
 /**
  * @title  登录
@@ -44,25 +49,16 @@ public class LoginActivity extends BaseAty{
                 }else if(userPwd.length() == 0){
                     showErrorToast("密码不能为空");
                 }else{
-                    showToast("登录成功");
-                    setHasAnimiation(false);
-                    /*if (UserManger.isLogin()) {
-                        startActivity(MainAty.class, null);
-                    } else {
-                        startActivity(LoginAty.class, null);
-                    }*/
-                    startActivity(MainActivity.class, null);
-                    overridePendingTransition(R.anim.aty_in, R.anim.activity_alpha_out);
-                    Handler handler = new Handler();
-                    handler.postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            finish();
-                        }
-                    }, 2000);
+                    showLoadingDialog(null);
+                    doHttp(RetrofitUtils.createApi(HttpInterface.class).toLogin(userName,userPwd),1);
                 }
                 break;
         }
+    }
+
+    @Override
+    public boolean setIsInitRequestData() {
+        return false;
     }
 
     @Override
@@ -70,4 +66,38 @@ public class LoginActivity extends BaseAty{
 
     }
 
+    @Override
+    public void onSuccess(String result, Call<ResponseBody> call, Response<ResponseBody> response, int what) {
+        super.onSuccess(result, call, response, what);
+        switch (what){
+            case 1:
+                showToast("登录成功");
+                setHasAnimiation(false);
+                    /*if (UserManger.isLogin()) {
+                        startActivity(MainAty.class, null);
+                    } else {
+                        startActivity(LoginAty.class, null);
+                    }*/
+                startActivity(MainActivity.class, null);
+                overridePendingTransition(R.anim.aty_in, R.anim.activity_alpha_out);
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        finish();
+                    }
+                }, 2000);
+                break;
+        }
+    }
+
+    @Override
+    public void onFailure(String result, Call<ResponseBody> call, Response<ResponseBody> response, int what) {
+        super.onFailure(result, call, response, what);
+        switch (what){
+            case 1:
+                showErrorToast("用户名或密码错误");
+                break;
+        }
+    }
 }

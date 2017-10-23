@@ -62,7 +62,7 @@ public abstract class BaseAty extends BaseActivity {
     public void onFailure(String result, Call<ResponseBody> call, Response<ResponseBody> response, int what) {
         super.onFailure(result, call, response, what);
         if (isShowOnFailureToast){
-            String msg = AppJsonUtil.getString(result, "msg");
+            String msg = AppJsonUtil.getString(result, "message");
             if (msg != null) {
                 showErrorToast(msg);
             }

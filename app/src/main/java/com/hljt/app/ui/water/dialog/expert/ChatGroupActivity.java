@@ -91,6 +91,8 @@ public class ChatGroupActivity extends BaseAty implements TextWatcher {
     private ConversationPojo conversationPojo;
     //所有数据
     private List<ConversationPojo> conversationPojos;
+    //头像数据
+    private String head = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1507083360&di=681541dec85bd70ec122584074d6eb92&imgtype=jpg&er=1&src=http%3A%2F%2Fwww.dxs518.cn%2Fimagesfiles%2Farticle%2F615%2F201628%2F12_xfny0___jpg.gif";
 
     private Handler mHandler = new Handler(){
         public void handleMessage(Message msg){
@@ -98,8 +100,7 @@ public class ChatGroupActivity extends BaseAty implements TextWatcher {
             switch (msg.what){
                 case 1:
                     //发送消息成功后，将发送消息加入列表
-                    chatGroupPojo = new ChatGroupPojo("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1507083360&di=681541dec85bd70ec122584074d6eb92&imgtype=jpg&er=1&src=http%3A%2F%2Fwww.dxs518.cn%2Fimagesfiles%2Farticle%2F615%2F201628%2F12_xfny0___jpg.gif",
-                            getInputMessage,TYPE_SEND,YES_RECORD);
+                    chatGroupPojo = new ChatGroupPojo(head, getInputMessage,TYPE_SEND,YES_RECORD);
                     chatGroupAdapter.addData(chatGroupPojo);
                     //发送消息成功后清理输入框
                     inputMessage.setText("");
@@ -111,7 +112,7 @@ public class ChatGroupActivity extends BaseAty implements TextWatcher {
                     if(conversationPojos.size() == 0){
                         conversationPojo = new ConversationPojo();
                         conversationPojo.setConversationId(id);
-                        conversationPojo.setConversationImg("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1507083360&di=681541dec85bd70ec122584074d6eb92&imgtype=jpg&er=1&src=http%3A%2F%2Fwww.dxs518.cn%2Fimagesfiles%2Farticle%2F615%2F201628%2F12_xfny0___jpg.gif");
+                        conversationPojo.setConversationImg(head);
                         conversationPojo.setConversationName(name);
                         conversationPojo.setConversationContent(getInputMessage);
                         conversationPojo.save();
@@ -131,7 +132,7 @@ public class ChatGroupActivity extends BaseAty implements TextWatcher {
                             Logger.e("群聊发送获取---不相同");
                             conversationPojo = new ConversationPojo();
                             conversationPojo.setConversationId(id);
-                            conversationPojo.setConversationImg("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1507083360&di=681541dec85bd70ec122584074d6eb92&imgtype=jpg&er=1&src=http%3A%2F%2Fwww.dxs518.cn%2Fimagesfiles%2Farticle%2F615%2F201628%2F12_xfny0___jpg.gif");
+                            conversationPojo.setConversationImg(head);
                             conversationPojo.setConversationName(name);
                             conversationPojo.setConversationContent(getInputMessage);
                             conversationPojo.save();
@@ -143,8 +144,7 @@ public class ChatGroupActivity extends BaseAty implements TextWatcher {
                     break;
                 case 3:
                     //接收消息成功后，将发送消息加入列表
-                    chatGroupPojo = new ChatGroupPojo("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1507083360&di=681541dec85bd70ec122584074d6eb92&imgtype=jpg&er=1&src=http%3A%2F%2Fwww.dxs518.cn%2Fimagesfiles%2Farticle%2F615%2F201628%2F12_xfny0___jpg.gif",
-                            emMessageBody.toString().substring(5,emMessageBody.toString().length() - 1),TYPE_RECEIVE,YES_RECORD);
+                    chatGroupPojo = new ChatGroupPojo(head, emMessageBody.toString().substring(5,emMessageBody.toString().length() - 1),TYPE_RECEIVE,YES_RECORD);
                     chatGroupAdapter.addData(chatGroupPojo);
                     //将recyclerview滚动到最底部
                     rv_data.scrollToPosition(chatGroupAdapter.getItemCount() - 1);
@@ -154,7 +154,7 @@ public class ChatGroupActivity extends BaseAty implements TextWatcher {
                     if(conversationPojos.size() == 0){
                         conversationPojo = new ConversationPojo();
                         conversationPojo.setConversationId(id);
-                        conversationPojo.setConversationImg("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1507083360&di=681541dec85bd70ec122584074d6eb92&imgtype=jpg&er=1&src=http%3A%2F%2Fwww.dxs518.cn%2Fimagesfiles%2Farticle%2F615%2F201628%2F12_xfny0___jpg.gif");
+                        conversationPojo.setConversationImg(head);
                         conversationPojo.setConversationName(name);
                         conversationPojo.setConversationContent(emMessageBody.toString().substring(5,emMessageBody.toString().length() - 1));
                         conversationPojo.save();
@@ -174,7 +174,7 @@ public class ChatGroupActivity extends BaseAty implements TextWatcher {
                             Logger.e("群聊接收获取---不相同");
                             conversationPojo = new ConversationPojo();
                             conversationPojo.setConversationId(id);
-                            conversationPojo.setConversationImg("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1507083360&di=681541dec85bd70ec122584074d6eb92&imgtype=jpg&er=1&src=http%3A%2F%2Fwww.dxs518.cn%2Fimagesfiles%2Farticle%2F615%2F201628%2F12_xfny0___jpg.gif");
+                            conversationPojo.setConversationImg(head);
                             conversationPojo.setConversationName(name);
                             conversationPojo.setConversationContent(emMessageBody.toString().substring(5,emMessageBody.toString().length() - 1));
                             conversationPojo.save();
@@ -302,10 +302,10 @@ public class ChatGroupActivity extends BaseAty implements TextWatcher {
                 chatGroupPojos = new ArrayList<>();
                 for(int i = 0; i < messageList.size(); i++){
                     if(messageList.get(i).direct() == EMMessage.Direct.RECEIVE){
-                        chatGroupPojo = new ChatGroupPojo("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1507083360&di=681541dec85bd70ec122584074d6eb92&imgtype=jpg&er=1&src=http%3A%2F%2Fwww.dxs518.cn%2Fimagesfiles%2Farticle%2F615%2F201628%2F12_xfny0___jpg.gif",
+                        chatGroupPojo = new ChatGroupPojo(head,
                                 messageList.get(i).getBody().toString().substring(5,messageList.get(i).getBody().toString().length() - 1),TYPE_RECEIVE,YES_RECORD);
                     }else if(messageList.get(i).direct() == EMMessage.Direct.SEND){
-                        chatGroupPojo = new ChatGroupPojo("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1507083360&di=681541dec85bd70ec122584074d6eb92&imgtype=jpg&er=1&src=http%3A%2F%2Fwww.dxs518.cn%2Fimagesfiles%2Farticle%2F615%2F201628%2F12_xfny0___jpg.gif",
+                        chatGroupPojo = new ChatGroupPojo(head,
                                 messageList.get(i).getBody().toString().substring(5,messageList.get(i).getBody().toString().length() - 1),TYPE_SEND,YES_RECORD);
                     }
                     chatGroupPojos.add(chatGroupPojo);
@@ -314,7 +314,7 @@ public class ChatGroupActivity extends BaseAty implements TextWatcher {
             }
         }catch (Exception e){
             chatGroupPojos = new ArrayList<>();
-            chatGroupPojo = new ChatGroupPojo("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1507083360&di=681541dec85bd70ec122584074d6eb92&imgtype=jpg&er=1&src=http%3A%2F%2Fwww.dxs518.cn%2Fimagesfiles%2Farticle%2F615%2F201628%2F12_xfny0___jpg.gif",
+            chatGroupPojo = new ChatGroupPojo(head,
                     "没有数据",TYPE_SEND,NO_RECORD);
             chatGroupPojos.add(chatGroupPojo);
             chatGroupAdapter.setNewData(chatGroupPojos);

@@ -44,6 +44,8 @@ public class ChatAllFgt extends BaseFgt{
     //private static final String CHAT_LIST_PARAMS = "chat_list_params";
     //得到数据的数据源
     private List<String> nameList;
+    //头像数据
+    private String head = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1507083360&di=681541dec85bd70ec122584074d6eb92&imgtype=jpg&er=1&src=http%3A%2F%2Fwww.dxs518.cn%2Fimagesfiles%2Farticle%2F615%2F201628%2F12_xfny0___jpg.gif";
 
     /*@Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -150,7 +152,7 @@ public class ChatAllFgt extends BaseFgt{
                     chatAllPojos = new ArrayList<>();
                     ChatAllPojo chatAllPojo = null;
                     for(String names:usernames){
-                        chatAllPojo = new ChatAllPojo("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1507083360&di=681541dec85bd70ec122584074d6eb92&imgtype=jpg&er=1&src=http%3A%2F%2Fwww.dxs518.cn%2Fimagesfiles%2Farticle%2F615%2F201628%2F12_xfny0___jpg.gif",
+                        chatAllPojo = new ChatAllPojo(head,
                                 names);
                         chatAllPojos.add(chatAllPojo);
                     }

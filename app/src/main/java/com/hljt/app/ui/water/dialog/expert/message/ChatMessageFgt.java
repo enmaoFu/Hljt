@@ -2,9 +2,13 @@ package com.hljt.app.ui.water.dialog.expert.message;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 
 import com.em.baseframe.adapter.recyclerview.BaseQuickAdapter;
@@ -13,11 +17,14 @@ import com.hljt.app.R;
 import com.hljt.app.adapter.ChatMessageAdapter;
 import com.hljt.app.base.BaseFgt;
 import com.hljt.app.pojo.ChatMessagePojo;
+import com.hljt.app.pojo.ChatPojo;
 import com.hljt.app.pojo.MessageEvent;
 import com.hljt.app.sql.ConversationPojo;
 import com.hljt.app.ui.water.dialog.expert.ChatActivity;
 import com.hljt.app.ui.water.dialog.expert.ChatGroupActivity;
+import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMConversation;
+import com.orhanobut.logger.Logger;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -48,6 +55,30 @@ public class ChatMessageFgt extends BaseFgt{
     //数据源
     private List<ChatMessagePojo> chatMessagePojos;
     private Map<String, EMConversation> conversations;
+    private ChatMessagePojo chatMessagePojo;
+
+    //数据库
+    private ConversationPojo conversationPojo;
+    //所有数据
+    private List<ConversationPojo> conversationPojos;
+    //头像数据
+    private String head = "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1507083360&di=681541dec85bd70ec122584074d6eb92&imgtype=jpg&er=1&src=http%3A%2F%2Fwww.dxs518.cn%2Fimagesfiles%2Farticle%2F615%2F201628%2F12_xfny0___jpg.gif";
+
+    private Handler mHandler = new Handler(){
+        public void handleMessage(Message msg){
+            //更新UI
+            switch (msg.what){
+                case 1:
+                    //往recyclerview里添加数据
+                    /*chatMessagePojos = new ArrayList<>();
+                    chatMessagePojo = new ChatMessagePojo("测试的",head,"测试的","测试的");
+                    chatMessagePojos.add(chatMessagePojo);
+                    chatMessageAdapter.addData(chatMessagePojos);
+                    chatMessageAdapter.notifyDataSetChanged();*/
+                    break;
+            }
+        };
+    };
 
     @Override
     protected int getLayoutId() {
@@ -57,13 +88,6 @@ public class ChatMessageFgt extends BaseFgt{
     @Override
     protected void initData() {
 
-        //注册EventBus
-        EventBus.getDefault().register(this);
-
-        //实例化布局管理器
-        mLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
-        //实例化适配器
-        chatMessageAdapter = new ChatMessageAdapter(R.layout.item_char_message, new ArrayList<ChatMessagePojo>());
         //设置布局管理器
         rv_data.setLayoutManager(mLayoutManager);
         //设置item点击事件
@@ -106,7 +130,6 @@ public class ChatMessageFgt extends BaseFgt{
 
         //往recyclerview里添加数据
         chatMessagePojos = new ArrayList<>();
-        ChatMessagePojo chatMessagePojo = null;
 
         for(ConversationPojo cps:conversationPojos){
             chatMessagePojo = new ChatMessagePojo(cps.getConversationId(),cps.getConversationImg(),cps.getConversationName(),cps.getConversationContent());
@@ -162,11 +185,28 @@ public class ChatMessageFgt extends BaseFgt{
         }
     }
 
-    //默认调用方式，在调用post方法的线程执行，避免了线程切换，性能开销最少
-    // ThreadMode is optional here
-    @Subscribe(threadMode = ThreadMode.POSTING)
+    //接收消息
+    @Subscribe
     public void onMessage(MessageEvent event) {
+        /**
+         * 这里，获取到了信息后，先存到数据库，再用Handler取数据库里的放进适配器
+         */
+        //更新UI方法  1
+        /*Message message = new Message();
+        message.what = 1;
+        mHandler.sendMessage(message);
+        Logger.e("消息Fgt：" + "id：" + event.getId() + " 名字：" + event.getName() + " 头像：" + event.getImg()  + " 内容：" + event.getContent());*/
+    }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        //注册EventBus
+        EventBus.getDefault().register(this);
+        //实例化布局管理器
+        mLayoutManager = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
+        //实例化适配器
+        chatMessageAdapter = new ChatMessageAdapter(R.layout.item_char_message, new ArrayList<ChatMessagePojo>());
     }
 
     @Override

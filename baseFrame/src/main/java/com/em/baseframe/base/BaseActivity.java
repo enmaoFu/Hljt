@@ -431,8 +431,8 @@ public abstract class BaseActivity extends AppCompatActivity implements HttpCall
                     String result = response.body().string();
                     Logger.json(result);
                     JSONObject object = JSONObject.parseObject(result);
-                    if (object.containsKey("code")) {
-                        int code = object.getInteger("code");
+                    if (object.containsKey("state")) {
+                        int code = object.getInteger("state");
                         if (code == 200) {
                             BaseActivity.this.onSuccess(result, call, response, what);
                         } else {

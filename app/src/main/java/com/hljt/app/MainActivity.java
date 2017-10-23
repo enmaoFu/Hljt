@@ -11,9 +11,12 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.baidu.location.BDLocation;
@@ -24,17 +27,27 @@ import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.BitmapDescriptor;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
 import com.baidu.mapapi.map.CircleOptions;
+import com.baidu.mapapi.map.InfoWindow;
+import com.baidu.mapapi.map.MapPoi;
 import com.baidu.mapapi.map.MapStatus;
 import com.baidu.mapapi.map.MapStatusUpdate;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
+import com.baidu.mapapi.map.Marker;
 import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.map.Stroke;
 import com.baidu.mapapi.model.LatLng;
 import com.em.baseframe.base.BaseActivity;
+import com.em.baseframe.util.AppJsonUtil;
+import com.em.baseframe.util.AppManger;
+import com.em.baseframe.util.AppUtils;
 import com.em.baseframe.util.RetrofitUtils;
+import com.hljt.app.domain.All;
+import com.hljt.app.domain.Area;
+import com.hljt.app.domain.Road;
+import com.hljt.app.domain.Single;
 import com.hljt.app.http.HttpInterface;
 import com.hljt.app.ui.water.MoreNavigationBarActivity;
 import com.hljt.app.ui.water.dialog.calculation.ApplicationCalculationActivity;
@@ -47,6 +60,7 @@ import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;
 import com.orhanobut.logger.Logger;
 
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -68,7 +82,7 @@ import retrofit2.Response;
  * @date 2017/09/19
  */
 @RuntimePermissions
-public class MainActivity extends BaseActivity implements EMCallBack {
+public class MainActivity extends BaseActivity implements EMCallBack,BaiduMap.OnMarkerClickListener,BaiduMap.OnMapClickListener {
 
     @Bind(R.id.bmapView)
     MapView mMapView;
@@ -107,6 +121,17 @@ public class MainActivity extends BaseActivity implements EMCallBack {
 
     private double lat;
     private double lon;
+    private boolean flag = false;
+    private List<Area> areas;
+    private double latMarker = 0;
+    private double logMarker = 0;
+    private String fireWaterId;
+    private String fireWaterTypeId;
+    private List<All> alls;
+    private double doLon;
+    private double doLat;
+    private String roName;
+    private List<Road> roads;
 
     /**
      * 解决切换到HomeActivity界面的发生界面黑屏问题
@@ -129,6 +154,7 @@ public class MainActivity extends BaseActivity implements EMCallBack {
         //当android系统小于5.0的时候直接定位显示，不用动态申请权限
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
             initMap();
+            water.setBackgroundResource(R.drawable.water_borm_bg_x);
         } else {
             MainActivityPermissionsDispatcher.ApplySuccessWithCheck(this);
         }
@@ -158,54 +184,108 @@ public class MainActivity extends BaseActivity implements EMCallBack {
                 showDlalog();
                 break;
             case R.id.water:
-                if (waterFlag) {
+                water.setBackgroundResource(R.drawable.water_borm_bg_x);
+                vedio.setBackgroundColor(Color.parseColor("#00090b0e"));
+                route.setBackgroundColor(Color.parseColor("#00090b0e"));
+                linkage.setBackgroundColor(Color.parseColor("#00090b0e"));
+                periphery.setBackgroundColor(Color.parseColor("#00090b0e"));
+                mBaiduMap.clear();
+                drawCircle();
+                doHttp(RetrofitUtils.createApi(HttpInterface.class).area(String.valueOf(doLat),String.valueOf(doLon),"300"),2);
+                /*if (waterFlag) {
                     water.setBackgroundColor(Color.parseColor("#00090b0e"));
                     showToast("关闭水源");
                 } else {
                     water.setBackgroundResource(R.drawable.water_borm_bg_x);
+                    vedio.setBackgroundColor(Color.parseColor("#00090b0e"));
+                    route.setBackgroundColor(Color.parseColor("#00090b0e"));
+                    linkage.setBackgroundColor(Color.parseColor("#00090b0e"));
+                    periphery.setBackgroundColor(Color.parseColor("#00090b0e"));
                     showToast("显示水源");
                 }
-                waterFlag = !waterFlag;
+                waterFlag = !waterFlag;*/
                 break;
             case R.id.vedio:
-                if (vedioFlag) {
+                vedio.setBackgroundResource(R.drawable.water_borm_bg_x);
+                water.setBackgroundColor(Color.parseColor("#00090b0e"));
+                route.setBackgroundColor(Color.parseColor("#00090b0e"));
+                linkage.setBackgroundColor(Color.parseColor("#00090b0e"));
+                periphery.setBackgroundColor(Color.parseColor("#00090b0e"));
+                mBaiduMap.clear();
+                drawCircle();
+                doHttp(RetrofitUtils.createApi(HttpInterface.class).road(roName),5);
+                /*if (vedioFlag) {
                     vedio.setBackgroundColor(Color.parseColor("#00090b0e"));
                     showToast("关闭视频");
                 } else {
                     vedio.setBackgroundResource(R.drawable.water_borm_bg_x);
+                    water.setBackgroundColor(Color.parseColor("#00090b0e"));
+                    route.setBackgroundColor(Color.parseColor("#00090b0e"));
+                    linkage.setBackgroundColor(Color.parseColor("#00090b0e"));
+                    periphery.setBackgroundColor(Color.parseColor("#00090b0e"));
                     showToast("显示视频");
                 }
-                vedioFlag = !vedioFlag;
+                vedioFlag = !vedioFlag;*/
                 break;
             case R.id.route:
-                if (routeFlag) {
+                route.setBackgroundResource(R.drawable.water_borm_bg_x);
+                vedio.setBackgroundColor(Color.parseColor("#00090b0e"));
+                water.setBackgroundColor(Color.parseColor("#00090b0e"));
+                linkage.setBackgroundColor(Color.parseColor("#00090b0e"));
+                periphery.setBackgroundColor(Color.parseColor("#00090b0e"));
+                /*if (routeFlag) {
                     route.setBackgroundColor(Color.parseColor("#00090b0e"));
                     showToast("关闭路线");
                 } else {
                     route.setBackgroundResource(R.drawable.water_borm_bg_x);
+                    vedio.setBackgroundColor(Color.parseColor("#00090b0e"));
+                    water.setBackgroundColor(Color.parseColor("#00090b0e"));
+                    linkage.setBackgroundColor(Color.parseColor("#00090b0e"));
+                    periphery.setBackgroundColor(Color.parseColor("#00090b0e"));
                     showToast("显示路线");
                 }
-                routeFlag = !routeFlag;
+                routeFlag = !routeFlag;*/
                 break;
             case R.id.linkage:
-                if (linkageFlag) {
+                linkage.setBackgroundResource(R.drawable.water_borm_bg_x);
+                vedio.setBackgroundColor(Color.parseColor("#00090b0e"));
+                route.setBackgroundColor(Color.parseColor("#00090b0e"));
+                water.setBackgroundColor(Color.parseColor("#00090b0e"));
+                periphery.setBackgroundColor(Color.parseColor("#00090b0e"));
+                mBaiduMap.clear();
+                drawCircle();
+                doHttp(RetrofitUtils.createApi(HttpInterface.class).all(),4);
+                /*if (linkageFlag) {
                     linkage.setBackgroundColor(Color.parseColor("#00090b0e"));
                     showToast("关闭联动");
                 } else {
                     linkage.setBackgroundResource(R.drawable.water_borm_bg_x);
+                    vedio.setBackgroundColor(Color.parseColor("#00090b0e"));
+                    route.setBackgroundColor(Color.parseColor("#00090b0e"));
+                    water.setBackgroundColor(Color.parseColor("#00090b0e"));
+                    periphery.setBackgroundColor(Color.parseColor("#00090b0e"));
                     showToast("显示联动");
                 }
-                linkageFlag = !linkageFlag;
+                linkageFlag = !linkageFlag;*/
                 break;
             case R.id.periphery:
-                if (peripheryFlag) {
+                periphery.setBackgroundResource(R.drawable.water_borm_bg_x);
+                vedio.setBackgroundColor(Color.parseColor("#00090b0e"));
+                route.setBackgroundColor(Color.parseColor("#00090b0e"));
+                linkage.setBackgroundColor(Color.parseColor("#00090b0e"));
+                water.setBackgroundColor(Color.parseColor("#00090b0e"));
+                /*if (peripheryFlag) {
                     periphery.setBackgroundColor(Color.parseColor("#00090b0e"));
                     showToast("关闭周边");
                 } else {
                     periphery.setBackgroundResource(R.drawable.water_borm_bg_x);
+                    vedio.setBackgroundColor(Color.parseColor("#00090b0e"));
+                    route.setBackgroundColor(Color.parseColor("#00090b0e"));
+                    linkage.setBackgroundColor(Color.parseColor("#00090b0e"));
+                    water.setBackgroundColor(Color.parseColor("#00090b0e"));
                     showToast("显示周边");
                 }
-                peripheryFlag = !peripheryFlag;
+                peripheryFlag = !peripheryFlag;*/
                 break;
         }
     }
@@ -280,6 +360,10 @@ public class MainActivity extends BaseActivity implements EMCallBack {
         initLocation();
         //开始定位
         mLocationClient.start();
+        doHttp(RetrofitUtils.createApi(HttpInterface.class).init(),1);
+        //Marker监听
+        mBaiduMap.setOnMarkerClickListener(this);
+        mBaiduMap.setOnMapClickListener(this);
     }
 
     /**
@@ -311,6 +395,52 @@ public class MainActivity extends BaseActivity implements EMCallBack {
         //可选，默认false，设置是否需要过滤GPS仿真结果，默认需要
         option.setEnableSimulateGps(false);
         mLocationClient.setLocOption(option);
+    }
+
+    /**
+     * Marker监听
+     * @param marker
+     * @return
+     */
+    @Override
+    public boolean onMarkerClick(Marker marker) {
+        LatLng latLng = marker.getPosition();
+        for(Area area:areas){
+            if(area.getFireWaterLai() == latLng.latitude){
+                latMarker = area.getFireWaterLai();
+                logMarker = area.getFireWaterLon();
+                fireWaterId = area.getFireWaterId();
+                fireWaterTypeId = area.getFireWaterTypeId();
+                Logger.e(latMarker + "------" + logMarker + "****" +areas.size() + "****" +fireWaterId + "****" + fireWaterTypeId);
+                break;
+            }
+        }
+        doHttp(RetrofitUtils.createApi(HttpInterface.class).single(fireWaterId,fireWaterTypeId),3);
+        return true;
+    }
+
+    /**
+     * 单击地图监听
+     * @param latLng
+     */
+    @Override
+    public void onMapClick(LatLng latLng) {
+        if (!flag) {
+            mBaiduMap.hideInfoWindow();
+        } else {
+            mBaiduMap.hideInfoWindow();
+        }
+        flag = !flag;
+    }
+
+    /**
+     * 单击地图Poi监听
+     * @param mapPoi
+     * @return
+     */
+    @Override
+    public boolean onMapPoiClick(MapPoi mapPoi) {
+        return false;
     }
 
     /**
@@ -409,11 +539,10 @@ public class MainActivity extends BaseActivity implements EMCallBack {
             //这个判断是为了防止每次定位都重新设置中心点和marker
             if (isFirstLocation) {
                 isFirstLocation = false;
-                setMarker();
+                //setMarker();
                 /*setUserMapCenter();*/
                 drawCircle();
                 //setPosition2Center(mBaiduMap, location, true);
-                setPosition2CenterTest(mBaiduMap,true);
             }
 
             Logger.v("定位时间：" + location.getTime() + " 定位经度：" + location.getLongitude() + " 定位维度：" + location.getLatitude()
@@ -422,7 +551,7 @@ public class MainActivity extends BaseActivity implements EMCallBack {
             /*showToast("定位时间：" + location.getTime() + " 定位经度：" + location.getLongitude() + " 定位维度：" + location.getLatitude()
                     + " 定位地址：" + location.getAddrStr());*/
 
-            doHttp(RetrofitUtils.createApi(HttpInterface.class).navigation(location.getLatitude(), location.getLongitude(), location.getTime()), 0);
+            //doHttp(RetrofitUtils.createApi(HttpInterface.class).navigation(location.getLatitude(), location.getLongitude(), location.getTime()), 0);
 
         }
 
@@ -431,8 +560,75 @@ public class MainActivity extends BaseActivity implements EMCallBack {
     @Override
     public void onSuccess(String result, Call<ResponseBody> call, Response<ResponseBody> response, int what) {
         switch (what) {
-            case 0:
-                Logger.v("成功-----------------------------------------------");
+            case 1:
+                doLon = Double.parseDouble(AppJsonUtil.getString(AppJsonUtil.getString(result, "data"), "lon"));
+                doLat = Double.parseDouble(AppJsonUtil.getString(AppJsonUtil.getString(result, "data"), "lat"));
+                roName = AppJsonUtil.getString(result,"unit_name");
+                setPosition2CenterTest(mBaiduMap,true,doLat,doLon);
+                doHttp(RetrofitUtils.createApi(HttpInterface.class).area(String.valueOf(doLat),String.valueOf(doLon),"300"),2);
+                break;
+            case 2:
+                areas = AppJsonUtil.getArrayList(result, Area.class);
+                //构建Marker图标
+                BitmapDescriptor bitmap = BitmapDescriptorFactory.fromResource(R.drawable.xiaohuoshuanzhengchang);
+                LatLng point;
+                OverlayOptions option;
+                for(Area area:areas){
+                    point = new LatLng(area.getFireWaterLai(),area.getFireWaterLon());
+                    option = new MarkerOptions().position(point).icon(bitmap);
+                    mBaiduMap.addOverlay(option);
+                }
+                break;
+            case 3:
+                //创建InfoWindow展示的view
+                LayoutInflater inflater = getLayoutInflater();
+                View view = inflater.inflate(R.layout.dialog, null);
+                TextView dz_text = (TextView)view.findViewById(R.id.dz_text);
+                TextView wz_text = (TextView)view.findViewById(R.id.wz_text);
+                TextView yl_text = (TextView)view.findViewById(R.id.yl_text);
+                TextView kj_text = (TextView)view.findViewById(R.id.kj_text);
+                Single single = AppJsonUtil.getObject(result, Single.class);
+                dz_text.setText(single.getFireWaterPoolName());
+                wz_text.setText(single.getFireWaterPoolAddress());
+                yl_text.setText("100MPa");
+                kj_text.setText("20cm");
+                //定义用于显示该InfoWindow的坐标点
+                LatLng pt = new LatLng(latMarker, logMarker);
+                //创建InfoWindow , 传入 view， 地理坐标， y 轴偏移量
+                InfoWindow mInfoWindow = new InfoWindow(view, pt, -60);
+                if (!flag) {
+                    //显示InfoWindow
+                    mBaiduMap.showInfoWindow(mInfoWindow);
+                } else {
+                    mBaiduMap.hideInfoWindow();
+                    //显示InfoWindow
+                    mBaiduMap.showInfoWindow(mInfoWindow);
+                }
+                flag = !flag;
+                break;
+            case 4:
+                alls = AppJsonUtil.getArrayList(result, All.class);
+                //构建Marker图标
+                BitmapDescriptor bitmap1 = BitmapDescriptorFactory.fromResource(R.drawable.dw);
+                LatLng point1;
+                OverlayOptions option1;
+                for(All all:alls){
+                    point1 = new LatLng(all.getLat(),all.getLon());
+                    option1 = new MarkerOptions().position(point1).icon(bitmap1);
+                    mBaiduMap.addOverlay(option1);
+                }
+                break;
+            case 5:
+                roads = AppJsonUtil.getArrayList(result, Road.class);
+                //构建Marker图标
+                BitmapDescriptor bitmap2 = BitmapDescriptorFactory.fromResource(R.drawable.sxt);
+                LatLng point2;
+                OverlayOptions option2;
+                for(Road road:roads){
+                    point2 = new LatLng(road.getLat(),road.getLon());
+                    option2 = new MarkerOptions().position(point2).icon(bitmap2);
+                    mBaiduMap.addOverlay(option2);
+                }
                 break;
         }
     }
@@ -477,7 +673,8 @@ public class MainActivity extends BaseActivity implements EMCallBack {
      */
     private void setUserMapCenter() {
         Logger.v("pcw", "setUserMapCenter : lat : " + lat + " lon : " + lon);
-        LatLng cenpt = new LatLng(lat, lon);
+        //LatLng cenpt = new LatLng(lat, lon);
+        LatLng cenpt = new LatLng(29.2761070, 106.2817710);
         //定义地图状态
         MapStatus mMapStatus = new MapStatus.Builder()
                 .target(cenpt)
@@ -510,7 +707,6 @@ public class MainActivity extends BaseActivity implements EMCallBack {
             builder.target(ll).zoom(18.0f);
             map.animateMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()));
         }
-
     }
 
     /**
@@ -519,14 +715,14 @@ public class MainActivity extends BaseActivity implements EMCallBack {
      * @param map
      * @param isShowLoc
      */
-    public void setPosition2CenterTest(BaiduMap map,Boolean isShowLoc) {
+    public void setPosition2CenterTest(BaiduMap map,Boolean isShowLoc,double lat,double lon) {
         MyLocationData locData = new MyLocationData.Builder()
-                .latitude(29.276107)
-                .longitude(106.281771).build();
+                .latitude(lat)
+                .longitude(lon).build();
         map.setMyLocationData(locData);
 
         if (isShowLoc) {
-            LatLng ll = new LatLng(29.276107, 106.281771);
+            LatLng ll = new LatLng(lat, lon);
             MapStatus.Builder builder = new MapStatus.Builder();
             builder.target(ll).zoom(18.0f);
             map.animateMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()));
@@ -542,12 +738,12 @@ public class MainActivity extends BaseActivity implements EMCallBack {
     public void drawCircle() {
         //定义多边形的五个顶点
         LatLng pt1 = new LatLng(29.276107, 106.281771);
-//构建用户绘制多边形的Option对象
+        //构建用户绘制多边形的Option对象
         /*OverlayOptions polygonOption = new PolygonOptions()
                 .points(pts)
                 .stroke(new Circle(5, 0xAA00FF00))
                 .fillColor(0xAAFFFF00);
-//在地图上添加多边形Option，用于显示
+        //在地图上添加多边形Option，用于显示
         mBaiduMap.addOverlay(polygonOption);*/
         OverlayOptions overlayOptions = new CircleOptions()
                 .center(pt1)
@@ -603,6 +799,7 @@ public class MainActivity extends BaseActivity implements EMCallBack {
     @NeedsPermission(Manifest.permission.ACCESS_COARSE_LOCATION)
     void ApplySuccess() {
         initMap();
+        water.setBackgroundResource(R.drawable.water_borm_bg_x);
     }
 
     /**

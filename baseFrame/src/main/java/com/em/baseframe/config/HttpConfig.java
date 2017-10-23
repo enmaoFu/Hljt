@@ -11,6 +11,7 @@ public class HttpConfig {
 
    //public static final String BASE_URL = "http://yingyan.baidu.com/";
 
-   public static final String BASE_URL = "http://47.92.95.168:80/";
-  
+   //public static final String BASE_URL = "http://47.92.95.168:80/";
+
+   public static final String BASE_URL = "http://192.168.199.206:8089/";
 }

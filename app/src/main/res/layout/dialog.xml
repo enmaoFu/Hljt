@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="#56123490"
+        android:gravity="center"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/dz"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="地址："
+                android:textSize="14sp"
+                android:textColor="#ffffff"/>
+
+            <TextView
+                android:id="@+id/dz_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/dz"
+                android:textSize="14sp"
+                android:textColor="#ffffff"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:id="@+id/wz"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="火源位置："
+                android:textSize="14sp"
+                android:textColor="#ffffff"/>
+
+            <TextView
+                android:id="@+id/wz_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/wz"
+                android:textSize="14sp"
+                android:textColor="#ffffff"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:id="@+id/yl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="压力："
+                android:textSize="14sp"
+                android:textColor="#ffffff"/>
+
+            <TextView
+                android:id="@+id/yl_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/yl"
+                android:textSize="14sp"
+                android:textColor="#ffffff"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:id="@+id/kj"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="口径："
+                android:textSize="14sp"
+                android:textColor="#ffffff"/>
+
+            <TextView
+                android:id="@+id/kj_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/kj"
+                android:textSize="14sp"
+                android:textColor="#ffffff"/>
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
